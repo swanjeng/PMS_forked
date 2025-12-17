@@ -1,8 +1,11 @@
 # PMS Library
+
 Arduino library for Plantower PMS sensors.
-Supports PMS x003 sensors (1003, 3003, 5003, 6003, 7003).
+Supports PMS x003 sensors (1003, 3003, 5003, 6003, 7003, 9003, A003).
+
 ## Installation
-Just use Arduino Library Manager and search "PMS Library" in Sensors category.
+Just use Arduino Library Manager and search "PMS Library".
+
 ## Main assumptions
 - easy as possible,
 - minimal memory consumption,
@@ -11,19 +14,20 @@ Just use Arduino Library Manager and search "PMS Library" in Sensors category.
 - supporting additional modes e.g.: sleeping, passive, active (depends on the sensor model).
 
 As a data source you can use **any object** that implements the **Stream class**, such as Wire, Serial, EthernetClient, e.t.c.
+
 ## Basic example
 Read in active mode.
-> Default mode is active after power up. In this mode sensor would send serial data to the host automatically. The active mode is divided into two sub-modes: stable mode and fast mode. If the concentration change is small the sensor would run at stable mode with the real interval of 2.3s. And if the change is big the sensor would be changed to fast mode automatically with the interval of 200~800ms, the higher of the concentration, the shorter of the interval.
+> Default mode is active after power up. In this mode, the sensor would send serial data to the host automatically. The active mode is divided into two sub-modes: stable mode and fast mode. If the concentration change is small, the sensor would run at stable mode with the real interval of 2.3s. And if the change is big the sensor would be changed to fast mode automatically with the interval of 200~800ms, the higher of the concentration, the shorter of the interval.
 ```cpp
 #include "PMS.h"
 
-PMS pms(Serial1);
+PMS pms(Serial1);    // softwareserial is also ok.
 PMS::DATA data;
 
 void setup()
 {
-  Serial.begin(9600);   // GPIO1, GPIO3 (TX/RX pin on ESP-12E Development Board)
-  Serial1.begin(9600);  // GPIO2 (D4 pin on ESP-12E Development Board)
+  Serial.begin(9600);
+  Serial1.begin(9600);
 }
 
 void loop()
@@ -67,8 +71,8 @@ PMS::DATA data;
 
 void setup()
 {
-  Serial.begin(9600);   // GPIO1, GPIO3 (TX/RX pin on ESP-12E Development Board)
-  Serial1.begin(9600);  // GPIO2 (D4 pin on ESP-12E Development Board)
+  Serial.begin(9600);
+  Serial1.begin(9600);
   pms.passiveMode();    // Switch to passive mode
 }
 
